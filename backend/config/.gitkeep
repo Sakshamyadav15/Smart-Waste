@@ -1,0 +1,31 @@
+# Firebase Configuration
+
+Place your Firebase service account JSON file here.
+
+**Steps:**
+1. Go to [Firebase Console](https://console.firebase.google.com/)
+2. Select your project
+3. Project Settings → Service Accounts
+4. Click "Generate New Private Key"
+5. Save as `firebase-service-account.json` in this directory
+
+**Security:**
+- Never commit this file to version control
+- File is listed in `.gitignore`
+- Use environment variables for sensitive data
+
+**Example Structure:**
+```json
+{
+  "type": "service_account",
+  "project_id": "your-project-id",
+  "private_key_id": "xxx",
+  "private_key": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-xxxxx@your-project.iam.gserviceaccount.com",
+  "client_id": "xxx",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/..."
+}
+```

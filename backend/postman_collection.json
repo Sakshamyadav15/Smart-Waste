@@ -1,0 +1,225 @@
+{
+  "info": {
+    "name": "EcoSort SmartWaste API",
+    "description": "Backend API for multimodal waste classification with Hugging Face AI integration",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        },
+        "description": "Check server health and status"
+      }
+    },
+    {
+      "name": "Classification",
+      "item": [
+        {
+          "name": "Classify Image",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "/path/to/image.jpg",
+                  "description": "Image file (JPG/PNG, max 5MB)"
+                },
+                {
+                  "key": "city",
+                  "value": "Bengaluru",
+                  "type": "text",
+                  "description": "City name"
+                },
+                {
+                  "key": "userId",
+                  "value": "user123",
+                  "type": "text",
+                  "description": "Optional user ID"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/classify",
+              "host": ["{{baseUrl}}"],
+              "path": ["classify"]
+            },
+            "description": "Classify waste from uploaded image"
+          }
+        },
+        {
+          "name": "Classify with Audio",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "/path/to/image.jpg"
+                },
+                {
+                  "key": "audio",
+                  "type": "file",
+                  "src": "/path/to/audio.mp3",
+                  "description": "Optional audio file"
+                },
+                {
+                  "key": "city",
+                  "value": "Delhi",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/classify",
+              "host": ["{{baseUrl}}"],
+              "path": ["classify"]
+            },
+            "description": "Multimodal classification with image and audio"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Feedback",
+      "item": [
+        {
+          "name": "Submit Feedback",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"predictionId\": 123,\n  \"originalLabel\": \"film\",\n  \"correctLabel\": \"plastic\",\n  \"city\": \"Bengaluru\",\n  \"notes\": \"This is a plastic wrapper, not film\",\n  \"userEmail\": \"user@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/feedback",
+              "host": ["{{baseUrl}}"],
+              "path": ["feedback"]
+            },
+            "description": "Submit user feedback for incorrect classification"
+          }
+        },
+        {
+          "name": "Get Feedback (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-admin-key",
+                "value": "{{adminApiKey}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/feedback?city=Bengaluru&resolved=false&limit=50",
+              "host": ["{{baseUrl}}"],
+              "path": ["feedback"],
+              "query": [
+                {
+                  "key": "city",
+                  "value": "Bengaluru",
+                  "description": "Filter by city"
+                },
+                {
+                  "key": "resolved",
+                  "value": "false",
+                  "description": "Filter by resolved status"
+                },
+                {
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Results per page"
+                },
+                {
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Pagination offset",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get feedback with filters (requires admin key)"
+          }
+        },
+        {
+          "name": "Resolve Feedback (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "x-admin-key",
+                "value": "{{adminApiKey}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resolved\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/feedback/456/resolve",
+              "host": ["{{baseUrl}}"],
+              "path": ["feedback", "456", "resolve"]
+            },
+            "description": "Mark feedback as resolved (requires admin key)"
+          }
+        },
+        {
+          "name": "Get Feedback Stats (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-admin-key",
+                "value": "{{adminApiKey}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/feedback/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["feedback", "stats"]
+            },
+            "description": "Get feedback analytics and statistics"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "adminApiKey",
+      "value": "your-admin-key",
+      "type": "string"
+    }
+  ]
+}
