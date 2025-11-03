@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { Camera, Upload, MapPin } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface UploadCardProps {
   onClassify: (image: File, city: string) => void;
@@ -18,6 +19,7 @@ const CITIES = [
 ];
 
 export default function UploadCard({ onClassify, error }: UploadCardProps) {
+  const { t } = useLanguage();
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [selectedCity, setSelectedCity] = useState<string>('Delhi');
@@ -47,10 +49,10 @@ export default function UploadCard({ onClassify, error }: UploadCardProps) {
       <div className="space-y-6">
         <div className="text-center">
           <h2 className="text-xl font-semibold text-gray-800 mb-2">
-            Upload Waste Image
+            {t('uploadTitle')}
           </h2>
           <p className="text-sm text-gray-600">
-            Take or upload a photo to classify waste type
+            {t('uploadDescription')}
           </p>
         </div>
 
@@ -66,7 +68,7 @@ export default function UploadCard({ onClassify, error }: UploadCardProps) {
                 className="max-h-64 mx-auto rounded-xl object-cover"
               />
               <p className="text-sm text-green-700 font-medium">
-                Tap to change image
+                {t('tapToChange')}
               </p>
             </div>
           ) : (
@@ -76,10 +78,10 @@ export default function UploadCard({ onClassify, error }: UploadCardProps) {
               </div>
               <div>
                 <p className="text-gray-700 font-medium mb-1">
-                  Tap to capture or upload
+                  {t('tapToCapture')}
                 </p>
                 <p className="text-sm text-gray-500">
-                  PNG, JPG up to 10MB
+                  {t('imageFormats')}
                 </p>
               </div>
             </div>
@@ -98,18 +100,21 @@ export default function UploadCard({ onClassify, error }: UploadCardProps) {
         <div className="space-y-2">
           <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
             <MapPin className="w-4 h-4 text-green-600" />
-            Select Your City
+            {t('selectCity')}
           </label>
           <select
             value={selectedCity}
             onChange={(e) => setSelectedCity(e.target.value)}
             className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-800"
           >
-            {CITIES.map((city) => (
-              <option key={city} value={city}>
-                {city}
-              </option>
-            ))}
+            {CITIES.map((city) => {
+              const cityKey = city.toLowerCase();
+              return (
+                <option key={city} value={city}>
+                  {t(`cities.${cityKey}`)}
+                </option>
+              );
+            })}
           </select>
         </div>
 
@@ -125,7 +130,7 @@ export default function UploadCard({ onClassify, error }: UploadCardProps) {
           className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2"
         >
           <Upload className="w-5 h-5" />
-          Classify Waste
+          {t('classifyButton')}
         </button>
       </div>
     </div>

@@ -1,6 +1,9 @@
 import { Loader2 } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Loader() {
+  const { t } = useLanguage();
+
   return (
     <div className="bg-white rounded-3xl shadow-lg p-12 text-center animate-fadeIn">
       <div className="space-y-6">
@@ -10,13 +13,13 @@ export default function Loader() {
 
         <div>
           <h3 className="text-xl font-semibold text-gray-800 mb-2">
-            Classifying Waste...
+            {t('classifying')}
           </h3>
           <p className="text-sm text-gray-600">
-            Our AI is analyzing your image
+            {t('analyzingImage')}
           </p>
           <p className="text-xs text-gray-500 mt-2">
-            First use? The AI model (~90MB) will download and be cached in your browser
+            {t('firstTimeNote')}
           </p>
         </div>
 
