@@ -30,7 +30,7 @@ export default function ResultCard({ result, city, onReset }: ResultCardProps) {
     try {
       await reportIncorrect({
         originalLabel: result.label,
-        correctLabel: result.label, // User would specify the correct label
+        correctLabel: result.label, 
         city: city,
         notes: 'Incorrect classification reported by user'
       });

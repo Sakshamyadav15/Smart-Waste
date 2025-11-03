@@ -9,10 +9,10 @@ export default function Navbar() {
     <nav className="bg-white shadow-sm border-b border-green-100">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Spacer for alignment */}
+          {}
           <div className="w-32 hidden md:block"></div>
           
-          {/* Center logo */}
+          {}
           <div className="flex flex-col items-center flex-1">
             <div className="flex items-center gap-2">
               <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center">
@@ -25,7 +25,7 @@ export default function Navbar() {
             </p>
           </div>
 
-          {/* Language switcher on right */}
+          {}
           <div className="flex justify-end w-32">
             <LanguageSwitcher />
           </div>

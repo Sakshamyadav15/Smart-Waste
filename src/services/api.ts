@@ -1,6 +1,6 @@
 import type { ClassificationResult, FeedbackPayload } from '../types';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 export async function classifyWaste(
   image: File,
@@ -22,8 +22,7 @@ export async function classifyWaste(
     }
 
     const data = await response.json();
-    
-    // Backend returns { status: "ok", data: { label, confidence, action, ... } }
+
     return {
       label: data.data.label,
       confidence: data.data.confidence,

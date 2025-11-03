@@ -3,11 +3,11 @@ import { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Language } from '../i18n/translations';
 
-const languageOptions: { code: Language; name: string; flag: string }[] = [
-  { code: 'en', name: 'English', flag: '🇬🇧' },
-  { code: 'hi', name: 'हिंदी', flag: '🇮🇳' },
-  { code: 'kn', name: 'ಕನ್ನಡ', flag: '🇮🇳' },
-  { code: 'te', name: 'తెలుగు', flag: '🇮🇳' },
+const languageOptions: { code: Language; name: string }[] = [
+  { code: 'en', name: 'English' },
+  { code: 'hi', name: 'हिंदी' },
+  { code: 'kn', name: 'ಕನ್ನಡ' },
+  { code: 'te', name: 'తెలుగు' },
 ];
 
 export default function LanguageSwitcher() {
@@ -36,7 +36,6 @@ export default function LanguageSwitcher() {
         aria-label="Change language"
       >
         <Languages className="w-5 h-5 text-green-600" />
-        <span className="text-lg">{currentLanguage?.flag}</span>
         <span className="hidden sm:inline text-sm font-medium text-gray-700">
           {currentLanguage?.name}
         </span>
@@ -55,7 +54,6 @@ export default function LanguageSwitcher() {
                 language === lang.code ? 'bg-green-100 text-green-700' : 'text-gray-700'
               }`}
             >
-              <span className="text-xl">{lang.flag}</span>
               <span className="font-medium">{lang.name}</span>
               {language === lang.code && (
                 <span className="ml-auto text-green-600">✓</span>
